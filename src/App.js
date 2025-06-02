@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AlertTriangle, CheckCircle, XCircle, Users, Scale, Heart, Shield, Eye, Lightbulb, Save, History } from 'lucide-react';
+import { AlertTriangle, CheckCircle, XCircle, Lightbulb, Save, History } from 'lucide-react';
 
 const EthicalYardstick = () => {
   const [useCase, setUseCase] = useState('');
@@ -87,7 +87,7 @@ const EthicalYardstick = () => {
     if (keywords.includes('explainable') || keywords.includes('interpretable')) score += 2;
     if (keywords.includes('documented') || keywords.includes('disclosed')) score += 1;
     if (keywords.includes('black box') || keywords.includes('opaque') || keywords.includes('hidden')) score -= 2;
-    if (keywords.includes('secret') || keywords.includes('proprietary') && !keywords.includes('open')) score -= 2;
+    if ((keywords.includes('secret') || keywords.includes('proprietary')) && !keywords.includes('open')) score -= 2;
     if (keywords.includes('misleading') || keywords.includes('deceptive')) score -= 2;
     return Math.max(0, Math.min(5, score));
   };
@@ -121,8 +121,8 @@ const EthicalYardstick = () => {
     if (keywords.includes('benefit') || keywords.includes('help') || keywords.includes('improve')) score += 1;
     if (keywords.includes('risk assessment') || keywords.includes('mitigation')) score += 1;
     if (keywords.includes('harm') || keywords.includes('damage') || keywords.includes('hurt')) score -= 2;
-    if (keywords.includes('dangerous') || keywords.includes('risky') && !keywords.includes('assessment')) score -= 2;
-    if (keywords.includes('addiction') || keywords.includes('mental health') && keywords.includes('negative')) score -= 2;
+    if (keywords.includes('dangerous') || (keywords.includes('risky') && !keywords.includes('assessment'))) score -= 2;
+    if (keywords.includes('addiction') || (keywords.includes('mental health') && keywords.includes('negative'))) score -= 2;
     return Math.max(0, Math.min(5, score));
   };
 
@@ -234,6 +234,8 @@ const EthicalYardstick = () => {
           } else {
             priorityRecs.push('🔍 Establish proactive risk monitoring with regular safety assessments');
           }
+          break;
+        default:
           break;
       }
     });
@@ -359,12 +361,6 @@ const EthicalYardstick = () => {
     if (score >= 4) return 'text-green-600';
     if (score >= 2.5) return 'text-yellow-600';
     return 'text-red-600';
-  };
-
-  const getScoreIcon = (score) => {
-    if (score >= 4) return <CheckCircle className="w-5 h-5 text-green-600" />;
-    if (score >= 2.5) return <AlertTriangle className="w-5 h-5 text-yellow-600" />;
-    return <XCircle className="w-5 h-5 text-red-600" />;
   };
 
   const getRiskBadge = (risk) => {
@@ -552,9 +548,7 @@ const EthicalYardstick = () => {
                           {framework.score}/5
                         </span>
                       </div>
-                      
                       <div className="relative h-12 bg-gray-200 rounded-lg border-2 border-gray-300 overflow-hidden">
-                                           
                         <div className="absolute inset-0 flex">
                           {[0,1,2,3,4,5].map((mark) => (
                             <div key={mark} className="flex-1 relative border-r border-gray-400 last:border-r-0">
