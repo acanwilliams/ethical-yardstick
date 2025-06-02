@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AlertTriangle, CheckCircle, XCircle, Lightbulb, Save, History } from 'lucide-react';
+import { Lightbulb, Save, History } from 'lucide-react';
 
 const EthicalYardstick = () => {
   const [useCase, setUseCase] = useState('');
@@ -548,7 +548,7 @@ const EthicalYardstick = () => {
                           {framework.score}/5
                         </span>
                       </div>
-                      <div className="relative h-12 bg-gray-200 rounded-lg border-2 border-gray-300 overflow-hidden">
+                   <div className="relative h-12 bg-gray-200 rounded-lg border-2 border-gray-300 overflow-hidden">
                         <div className="absolute inset-0 flex">
                           {[0,1,2,3,4,5].map((mark) => (
                             <div key={mark} className="flex-1 relative border-r border-gray-400 last:border-r-0">
