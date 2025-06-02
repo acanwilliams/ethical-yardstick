@@ -1,4 +1,4 @@
-javascript
+
 # Initialize git repository
 git init
 
